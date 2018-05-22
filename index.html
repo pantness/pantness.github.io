@@ -1,980 +1,696 @@
-<!DOCTYPE html><html>
-
+<!doctype html>
+<html>
 <head>
-<meta charset="utf-8">
-<title>#Pantness</title>
-<style>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Pantness</title><link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write, pre { white-space: pre-wrap; }
+.CodeMirror, .md-fences, table { text-align: left; }
+.md-reset, a:active, a:hover { outline: 0px; }
+.md-reset, .md-toc-item a { text-decoration: none; }
+.MathJax_SVG, .md-reset { float: none; direction: ltr; }
+:root { --bg-color: #ffffff; --text-color: #333333; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+a.url { word-break: break-all; }
+.in-text-selection, ::selection { background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
+#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
+.first-line-indent #write p .md-line { text-indent: 0px; }
+.first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+#write > figure:first-child { margin-top: 16px; }
+figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
+.CodeMirror-line, .md-fences { break-inside: avoid; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; margin-right: 4px; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; background-position: 0px 0px; background-repeat: initial initial; }
+.md-toc-inner, a img, img a { cursor: pointer; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { white-space: pre-wrap; margin-top: 0.714em; font-size: 0.7em; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > img:only-child { display: block; margin: auto; }
+.md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, tt { font-family: var(--monospace); }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+
+
+/* meyer reset -- http://meyerweb.com/eric/tools/css/reset/ , v2.0 | 20110126 | License: none (public domain) */
+
+@include-when-export url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+
+/* =========== */
+
 @font-face {
-  font-family: octicons-anchor;
-  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: normal;
+    src: local('PT Serif'), local('PTSerif-Regular'), url(file:///Users/leiyuch/Library/Application%20Support/abnerworks.Typora/themes/newsprint/PT_Serif-Web-Regular.ttf);
 }
-
-body {
-  background-color: white;
-}
-
-.markdown-body {
-  min-width: 200px;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 20px;
-
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  color: #333;
-  overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  word-wrap: break-word;
-}
-
-.markdown-body a {
-  background: transparent;;word-wrap: break-word; word-break: break-all;
-}
-
-.markdown-body a:active,
-.markdown-body a:hover {
-  outline: 0;
-}
-
-.markdown-body strong {
-  font-weight: bold;
-}
-
-.markdown-body h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-.markdown-body img {
-  border: 0;
-}
-
-.markdown-body hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-
-.markdown-body pre {
-  overflow: auto;
-}
-
-.markdown-body code,
-.markdown-body kbd,
-.markdown-body pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-.markdown-body input {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-
-.markdown-body html input[disabled] {
-  cursor: default;
-}
-
-.markdown-body input {
-  line-height: normal;
-}
-
-.markdown-body input[type="checkbox"] {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdown-body table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.markdown-body td,
-.markdown-body th {
-  padding: 0;
-}
-
-.markdown-body * {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.markdown-body input {
-  font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
-.markdown-body a {
-  color: #4183c4;
-  text-decoration: none;
-}
-
-.markdown-body a:hover,
-.markdown-body a:focus,
-.markdown-body a:active {
-  text-decoration: underline;
-}
-
-.markdown-body hr {
-  height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.markdown-body hr:before {
-  display: table;
-  content: "";
-}
-
-.markdown-body hr:after {
-  display: table;
-  clear: both;
-  content: "";
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  line-height: 1.1;
-}
-
-.markdown-body h1 {
-  font-size: 30px;
-}
-
-.markdown-body h2 {
-  font-size: 21px;
-}
-
-.markdown-body h3 {
-  font-size: 16px;
-}
-
-.markdown-body h4 {
-  font-size: 14px;
-}
-
-.markdown-body h5 {
-  font-size: 12px;
-}
-
-.markdown-body h6 {
-  font-size: 11px;
-}
-
-.markdown-body blockquote {
-  margin: 0;
-}
-
-.markdown-body ul,
-.markdown-body ol {
-  padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body ol ol,
-.markdown-body ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdown-body ul ul ol,
-.markdown-body ul ol ol,
-.markdown-body ol ul ol,
-.markdown-body ol ol ol {
-  list-style-type: lower-alpha;
-}
-
-.markdown-body dd {
-  margin-left: 0;
+@font-face {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: normal;
+    src: local('PT Serif'), local('PTSerif-Italic'), url('file:///Users/leiyuch/Library/Application%20Support/abnerworks.Typora/themes/newsprint/PT_Serif-Web-Italic.ttf')
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: bold;
+    src: local('PT Serif'), local('PTSerif-Bold'), url('file:///Users/leiyuch/Library/Application%20Support/abnerworks.Typora/themes/newsprint/PT_Serif-Web-Bold.ttf')
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: bold;
+    src: local('PT Serif'), local('PTSerif-BoldItalic'), url('file:///Users/leiyuch/Library/Application%20Support/abnerworks.Typora/themes/newsprint/PT_Serif-Web-BoldItalic.ttf')
+}
+
+:root {
+	--active-file-bg-color: #dadada;
+	--active-file-bg-color: rgba(32, 43, 51, 0.63);
+	--active-file-text-color: white;
+	--bg-color: #f3f2ee;
+	--text-color: #1f0909;
+}
+
+html {
+	font-size: 16px;
+}
+
+html, body {
+	background-color: #f3f2ee;
+	font-family: "PT Serif", 'Times New Roman', Times;
+	color: #1f0909;
+	line-height: 1.5em;
+}
+
+/*#write {
+	overflow-x: auto;
+    max-width: initial;
+	padding-left: calc(50% - 17em);
+    padding-right: calc(50% - 17em);
+}
+
+@media (max-width: 36em) {
+ 	#write {
+ 		padding-left: 1em;
+    	padding-right: 1em;
+ 	}
+}*/
+
+#write {
+	max-width: 40em;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* styles */
+
+/* ====== */
+
+/* headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+}
+h1 {
+	font-size: 1.875em;
+	/*30 / 16*/
+	line-height: 1.6em;
+	/* 48 / 30*/
+	margin-top: 2em;
+}
+h2,
+h3 {
+	font-size: 1.3125em;
+	/*21 / 16*/
+	line-height: 1.15;
+	/*24 / 21*/
+	margin-top: 2.285714em;
+	/*48 / 21*/
+	margin-bottom: 1.15em;
+	/*24 / 21*/
+}
+h3 {
+	font-weight: normal;
+}
+h4 {
+	font-size: 1.125em;
+	/*18 / 16*/
+	margin-top: 2.67em;
+	/*48 / 18*/
+}
+h5,
+h6 {
+	font-size: 1em;
+	/*16*/
 }
-
-.markdown-body code {
-  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-.markdown-body kbd {
-  background-color: #e7e7e7;
-  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
-  background-image: linear-gradient(#fefefe, #e7e7e7);
-  background-repeat: repeat-x;
-  border-radius: 2px;
-  border: 1px solid #cfcfcf;
-  color: #000;
-  padding: 3px 5px;
-  line-height: 10px;
-  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  display: inline-block;
-}
-
-.markdown-body>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdown-body>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdown-body .anchor {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  padding-right: 6px;
-  padding-left: 30px;
-  margin-left: -30px;
-}
-
-.markdown-body .anchor:focus {
-  outline: none;
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  position: relative;
-  margin-top: 1em;
-  margin-bottom: 16px;
-  font-weight: bold;
-  line-height: 1.4;
-}
-
-.markdown-body h1 .octicon-link,
-.markdown-body h2 .octicon-link,
-.markdown-body h3 .octicon-link,
-.markdown-body h4 .octicon-link,
-.markdown-body h5 .octicon-link,
-.markdown-body h6 .octicon-link {
-  display: none;
-  color: #000;
-  vertical-align: middle;
-}
-
-.markdown-body h1:hover .anchor,
-.markdown-body h2:hover .anchor,
-.markdown-body h3:hover .anchor,
-.markdown-body h4:hover .anchor,
-.markdown-body h5:hover .anchor,
-.markdown-body h6:hover .anchor {
-  height: 1em;
-  padding-left: 8px;
-  margin-left: -30px;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.markdown-body h1:hover .anchor .octicon-link,
-.markdown-body h2:hover .anchor .octicon-link,
-.markdown-body h3:hover .anchor .octicon-link,
-.markdown-body h4:hover .anchor .octicon-link,
-.markdown-body h5:hover .anchor .octicon-link,
-.markdown-body h6:hover .anchor .octicon-link {
-  display: inline-block;
-}
-
-.markdown-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2.25em;
-  line-height: 1.2;
-  border-bottom: 1px solid #eee;
-}
-
-.markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.75em;
-  line-height: 1.225;
-  border-bottom: 1px solid #eee;
-}
-
-.markdown-body h3 {
-  font-size: 1.5em;
-  line-height: 1.43;
-}
-
-.markdown-body h4 {
-  font-size: 1.25em;
-}
-
-.markdown-body h5 {
-  font-size: 1em;
-}
-
-.markdown-body h6 {
-  font-size: 1em;
-  color: #777;
-}
-
-.markdown-body p,
-.markdown-body blockquote,
-.markdown-body ul,
-.markdown-body ol,
-.markdown-body dl,
-.markdown-body table,
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 16px;
+h1 {
+	border-bottom: 1px solid;
+	margin-bottom: 1.875em;
+	padding-bottom: 0.8125em;
 }
+/* links */
 
-.markdown-body hr {
-  height: 4px;
-  padding: 0;
-  margin: 16px 0;
-  background-color: #e7e7e7;
-  border: 0 none;
+a {
+	text-decoration: none;
+	color: #065588;
 }
-
-.markdown-body ul,
-.markdown-body ol {
-  padding-left: 2em;
-}
-
-.markdown-body ul ul,
-.markdown-body ul ol,
-.markdown-body ol ol,
-.markdown-body ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body li>p {
-  margin-top: 16px;
-}
-
-.markdown-body dl {
-  padding: 0;
-}
-
-.markdown-body dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: bold;
+a:hover,
+a:active {
+	text-decoration: underline;
 }
+/* block spacing */
 
-.markdown-body dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
+p,
+blockquote,
+.md-fences {
+	margin-bottom: 1.5em;
 }
-
-.markdown-body blockquote {
-  padding: 0 15px;
-  color: #777;
-  border-left: 4px solid #ddd;
-}
-
-.markdown-body blockquote>:first-child {
-  margin-top: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 1.5em;
 }
+/* blockquote */
 
-.markdown-body blockquote>:last-child {
-  margin-bottom: 0;
+blockquote {
+	font-style: italic;
+	border-left: 5px solid;
+	margin-left: 2em;
+	padding-left: 1em;
 }
+/* lists */
 
-.markdown-body table {
-  display: block;
-  width: 100%;
-  overflow: auto;
-  word-break: normal;
-  word-break: keep-all;
+ul,
+ol {
+	margin: 0 0 1.5em 1.5em;
 }
-
-.markdown-body table th {
-  font-weight: bold;
+ol li {
+	list-style-type: decimal;
+	list-style-position: outside;
 }
-
-.markdown-body table th,
-.markdown-body table td {
-  padding: 6px 13px;
-  border: 1px solid #ddd;
+ul li {
+	list-style-type: disc;
+	list-style-position: outside;
 }
-
-.markdown-body table tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
+/* tables */
+.md-meta,.md-before, .md-after {
+	color:#999;
 }
 
-.markdown-body table tr:nth-child(2n) {
-  background-color: #f8f8f8;
+table {
+	margin-bottom: 1.5em;
+	/*24 / 16*/
+	font-size: 1em;
+	/* width: 100%; */
 }
-
-.markdown-body img {
-  max-width: 100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+thead th,
+tfoot th {
+	padding: .25em .25em .25em .4em;
+	text-transform: uppercase;
 }
-
-.markdown-body code {
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
-  border-radius: 3px;
+th {
+	text-align: left;
 }
-
-.markdown-body code:before,
-.markdown-body code:after {
-  letter-spacing: -0.2em;
-  content: "\00a0";
+td {
+	vertical-align: top;
+	padding: .25em .25em .25em .4em;
 }
 
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
+code,
+.md-fences {
+	background-color: #dadada;
+	padding-left: 1ch;
+	padding-right: 1ch;
 }
-
-.markdown-body .highlight {
-  margin-bottom: 16px;
+.md-fences {
+	margin-left: 2em;
+	margin-bottom: 3em;
 }
 
-.markdown-body .highlight pre,
-.markdown-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #f7f7f7;
-  border-radius: 3px;
+.md-fences .CodeMirror.CodeMirror-wrap {
+	top: -0.8em;
 }
 
-.markdown-body .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
+pre,
+code,
+tt {
+	font-size: .875em;
+	line-height: 1.714285em;
 }
+/* some fixes */
 
-.markdown-body pre {
-  word-wrap: normal;
+h1 {
+	line-height: 1.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
 }
 
-.markdown-body pre code {
-  display: inline;
-  max-width: initial;
-  padding: 0;
-  margin: 0;
-  overflow: initial;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
+p + ul,
+p + ol{
+	margin-top: -1em;
 }
 
-.markdown-body pre code:before,
-.markdown-body pre code:after {
-  content: normal;
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol {
+	margin-top: .5em;
 }
 
-.markdown-body .highlight {
-  background: #fff;
+li > ul,
+li > ol {
+	margin-top: inherit;
 }
 
-.markdown-body .highlight .mf,
-.markdown-body .highlight .mh,
-.markdown-body .highlight .mi,
-.markdown-body .highlight .mo,
-.markdown-body .highlight .il,
-.markdown-body .highlight .m {
-  color: #945277;
+h2,
+h3 {
+	margin-bottom: .75em;
 }
-
-.markdown-body .highlight .s,
-.markdown-body .highlight .sb,
-.markdown-body .highlight .sc,
-.markdown-body .highlight .sd,
-.markdown-body .highlight .s2,
-.markdown-body .highlight .se,
-.markdown-body .highlight .sh,
-.markdown-body .highlight .si,
-.markdown-body .highlight .sx,
-.markdown-body .highlight .s1 {
-  color: #df5000;
+hr {
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: none;
 }
-
-.markdown-body .highlight .kc,
-.markdown-body .highlight .kd,
-.markdown-body .highlight .kn,
-.markdown-body .highlight .kp,
-.markdown-body .highlight .kr,
-.markdown-body .highlight .kt,
-.markdown-body .highlight .k,
-.markdown-body .highlight .o {
-  font-weight: bold;
+h1 {
+	border-color: #c5c5c5;
 }
-
-.markdown-body .highlight .kt {
-  color: #458;
+blockquote {
+	border-color: #bababa;
+	color: #656565;
 }
-
-.markdown-body .highlight .c,
-.markdown-body .highlight .cm,
-.markdown-body .highlight .c1 {
-  color: #998;
-  font-style: italic;
+thead.md-table-edit {
+	background-color: transparent;
 }
-
-.markdown-body .highlight .cp,
-.markdown-body .highlight .cs {
-  color: #999;
-  font-weight: bold;
+thead {
+	background-color: #dadada;
 }
-
-.markdown-body .highlight .cs {
-  font-style: italic;
+tr:nth-child(even) {
+	background: #e8e7e7;
 }
-
-.markdown-body .highlight .n {
-  color: #333;
+hr {
+	border-color: #c5c5c5;
 }
-
-.markdown-body .highlight .na,
-.markdown-body .highlight .nv,
-.markdown-body .highlight .vc,
-.markdown-body .highlight .vg,
-.markdown-body .highlight .vi {
-  color: #008080;
+.task-list{
+	padding-left: 1rem;
 }
 
-.markdown-body .highlight .nb {
-  color: #0086B3;
+.md-task-list-item {
+	padding-left: 1.5rem;
+	list-style-type: none;
 }
 
-.markdown-body .highlight .nc {
-  color: #458;
-  font-weight: bold;
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.25rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #F3F2EE;
 }
 
-.markdown-body .highlight .no {
-  color: #094e99;
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
 }
 
-.markdown-body .highlight .ni {
-  color: #800080;
+#write pre.md-meta-block {
+	min-height: 1.875rem;
+	color: #555;
+	border: 0px;
+	background: transparent;
+	margin-top: -4px;
+	margin-left: 1em;
+	margin-top: 1em;
 }
 
-.markdown-body .highlight .ne {
-  color: #990000;
-  font-weight: bold;
+.md-image>.md-meta {
+	color: #9B5146;
 }
 
-.markdown-body .highlight .nf {
-  color: #945277;
-  font-weight: bold;
+.md-image>.md-meta{
+	font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
 }
 
-.markdown-body .highlight .nn {
-  color: #555;
-}
 
-.markdown-body .highlight .nt {
-  color: #000080;
+#write>h3.md-focus:before{
+	left: -1.5rem;
+	color:#999;
+	border-color:#999;
 }
-
-.markdown-body .highlight .err {
-  color: #a61717;
-  background-color: #e3d2d2;
+#write>h4.md-focus:before{
+	left: -1.5rem;
+	top: .25rem;
+	color:#999;
+	border-color:#999;
 }
-
-.markdown-body .highlight .gd {
-  color: #000;
-  background-color: #fdd;
+#write>h5.md-focus:before{
+	left: -1.5rem;
+	top: .0.3125rem;
+	color:#999;
+	border-color:#999;
 }
-
-.markdown-body .highlight .gd .x {
-  color: #000;
-  background-color: #faa;
+#write>h6.md-focus:before{
+	left: -1.5rem;
+	top: 0.3125rem;
+	color:#999;
+	border-color:#999;
 }
 
-.markdown-body .highlight .ge {
-  font-style: italic;
+.md-toc:focus .md-toc-content{
+	margin-top: 19px;
 }
 
-.markdown-body .highlight .gr {
-  color: #aa0000;
+.md-toc-content:empty:before{
+	color: #065588;
 }
-
-.markdown-body .highlight .gh {
-  color: #999;
+.md-toc-item {
+	color: #065588;
 }
-
-.markdown-body .highlight .gi {
-  color: #000;
-  background-color: #dfd;
+#write div.md-toc-tooltip {
+	background-color: #f3f2ee;
 }
 
-.markdown-body .highlight .gi .x {
-  color: #000;
-  background-color: #afa;
+#typora-sidebar {
+	background-color: #f3f2ee;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+  	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
 }
 
-.markdown-body .highlight .go {
-  color: #888;
+.pin-outline #typora-sidebar {
+	background: inherit;
+	box-shadow: none;
+	border-right: 1px dashed;
 }
 
-.markdown-body .highlight .gp {
-  color: #555;
+.pin-outline #typora-sidebar:hover .outline-title-wrapper {
+	border-left:1px dashed;
 }
 
-.markdown-body .highlight .gs {
-  font-weight: bold;
+.outline-item:hover {
+  background-color: #dadada;
+  border-left: 28px solid #dadada;
+  border-right: 18px solid #dadada;
 }
 
-.markdown-body .highlight .gu {
-  color: #800080;
-  font-weight: bold;
+.typora-node .outline-item:hover {
+  	border-right: 28px solid #dadada;
 }
 
-.markdown-body .highlight .gt {
-  color: #aa0000;
+.outline-expander:before {
+  content: "\f0da";
+  font-family: FontAwesome;
+  font-size:14px;
+  top: 1px;
 }
 
-.markdown-body .highlight .ow {
-  font-weight: bold;
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  content: "\f0d7";
 }
 
-.markdown-body .highlight .w {
-  color: #bbb;
+.modal-content {
+	background-color: #f3f2ee;
 }
 
-.markdown-body .highlight .sr {
-  color: #017936;
+.auto-suggest-container ul li {
+	list-style-type: none;
 }
 
-.markdown-body .highlight .ss {
-  color: #8b467f;
-}
+/** UI for electron */
 
-.markdown-body .highlight .bp {
-  color: #999;
+.megamenu-menu,
+#top-titlebar, #top-titlebar *,
+.megamenu-content {
+	background: #f3f2ee;
+	color: #1f0909;
 }
 
-.markdown-body .highlight .gc {
-  color: #999;
-  background-color: #EAF2F5;
+.megamenu-menu-header {
+	border-bottom: 1px dashed #202B33;
 }
 
-.markdown-body .octicon {
-  font: normal normal 16px octicons-anchor;
-  line-height: 1;
-  display: inline-block;
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.megamenu-menu {
+	box-shadow: none;
+	border-right: 1px dashed;
 }
 
-.markdown-body .octicon-link:before {
-  content: '\f05c';
+header, .context-menu, .megamenu-content, footer {
+	font-family: "PT Serif", 'Times New Roman', Times;
+    color: #1f0909;
 }
 
-.markdown-body .task-list-item {
-  list-style-type: none;
+#megamenu-back-btn {
+	color: #1f0909;
+	border-color: #1f0909;
 }
 
-.markdown-body .task-list-item+.task-list-item {
-  margin-top: 3px;
+.megamenu-menu-header #megamenu-menu-header-title:before {
+	color: #1f0909;
 }
 
-.markdown-body .task-list-item input {
-  float: left;
-  margin: 0.3em 0 0.25em -1.6em;
-  vertical-align: middle;
+.megamenu-menu-list li a:hover, .megamenu-menu-list li a.active {
+	color: inherit;
+	background-color: #e8e7df;
 }
-table td{ word-wrap: break-word !important; word-break: break-all !important; }
-/*
-
-github.com style (c) Vasily Polovnyov <vast@whiteants.net>
-
-*/
 
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  color: #333;
-  background: #f8f8f8;
-  -webkit-text-size-adjust: none;
+.long-btn:hover {
+	background-color: #e8e7df;
 }
 
-.hljs-comment,
-.diff .hljs-header {
-  color: #998;
-  font-style: italic;
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
 }
 
-.hljs-keyword,
-.css .rule .hljs-keyword,
-.hljs-winutils,
-.nginx .hljs-title,
-.hljs-subst,
-.hljs-request,
-.hljs-status {
-  color: #333;
-  font-weight: bold;
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
 }
 
-.hljs-number,
-.hljs-hexcolor,
-.ruby .hljs-constant {
-  color: #008080;
+.megamenu-menu-panel .btn {
+	background-color: #D2D1D1;
 }
 
-.hljs-string,
-.hljs-tag .hljs-value,
-.hljs-doctag,
-.tex .hljs-formula {
-  color: #d14;
+.btn-default {
+	background-color: transparent;
 }
 
-.hljs-title,
-.hljs-id,
-.scss .hljs-preprocessor {
-  color: #900;
-  font-weight: bold;
+.typora-sourceview-on #toggle-sourceview-btn,
+.show-word-count #footer-word-count {
+	background: #c7c5c5;
 }
 
-.hljs-list .hljs-keyword,
-.hljs-subst {
-  font-weight: normal;
+#typora-quick-open {
+    background-color: inherit;
 }
 
-.hljs-class .hljs-title,
-.hljs-type,
-.vhdl .hljs-literal,
-.tex .hljs-command {
-  color: #458;
-  font-weight: bold;
+.md-diagram-panel {
+	margin-left: -1ch;
+	margin-top: 24px;
 }
 
-.hljs-tag,
-.hljs-tag .hljs-title,
-.hljs-rule .hljs-property,
-.django .hljs-tag .hljs-keyword {
-  color: #000080;
-  font-weight: normal;
+.file-list-item-file-name {
+	font-weight: initial;
 }
 
-.hljs-attribute,
-.hljs-variable,
-.lisp .hljs-body,
-.hljs-name {
-  color: #008080;
+.file-list-item-summary {
+	opacity: 1;
 }
 
-.hljs-regexp {
-  color: #009926;
+.file-list-item {
+	color: #777;
 }
 
-.hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.lisp .hljs-keyword,
-.clojure .hljs-keyword,
-.scheme .hljs-keyword,
-.tex .hljs-special,
-.hljs-prompt {
-  color: #990073;
+.file-list-item.active {
+	background-color: inherit;
+	color: black;
 }
 
-.hljs-built_in {
-  color: #0086b3;
+.ty-side-sort-btn.active {
+	background-color: inherit;
 }
 
-.hljs-preprocessor,
-.hljs-pragma,
-.hljs-pi,
-.hljs-doctype,
-.hljs-shebang,
-.hljs-cdata {
-  color: #999;
-  font-weight: bold;
+.file-list-item.active .file-list-item-file-name  {
+	font-weight: bold;
 }
 
-.hljs-deletion {
-  background: #fdd;
+.file-list-item{
+    opacity:1 !important;
 }
 
-.hljs-addition {
-  background: #dfd;
+.file-library-node.active>.file-node-background{
+	background-color: rgba(32, 43, 51, 0.63);
+	background-color: var(--active-file-bg-color);
 }
 
-.diff .hljs-change {
-  background: #0086b3;
+.file-tree-node.active>.file-node-content{
+	color: white;
+	color: var(--active-file-text-color);
 }
 
-.hljs-chunk {
-  color: #aaa;
+.md-task-list-item>input {
+	margin-left: -1.6em;
+	margin-top: calc(1rem - 12px);
 }
 
 
+ .typora-export p, .typora-export .footnote-line {white-space: normal;} 
 </style>
-
-<style> @media print{ .hljs{overflow: visible; word-wrap: break-word !important;} }</style></head><body><div class="markdown-body">
-<h1 id="toc_0">Pantness</h1>
-
-<p><img src="media/15261049083487/WechatIMG370.jpeg" alt="WechatIMG370"/>￼</p>
-
-<h2 id="toc_1">项目背景</h2>
-
-<p>身体活力及优美体态已经成为个人品牌的象征，健康生活理念开始为越来越多的人接受。据国家统计局发布，到2020年，国内的体育消费总规模将达到1.5万亿元人民币，经常参加体育锻炼的人数达到4.35亿 <br></p>
-
-<ul>
-<li><p>国家扶持</p>
-
-<p>近年来，国家出台各类政策大力支持健康服务业、体育健身产业的发展，促进健身业态的扩张。<br/>
-<img src="media/15261049083487/1015228589.jpg" alt="1015228589"/>￼￼<br/>
-<br></p></li>
-<li><p>健康意识觉醒</p>
-
-<p><img src="media/15261049083487/1015233835.png" alt="1015233835"/>￼￼</p>
-
-<p>现代人注重健康管理，近年国人尤其重视通过体育运动增强预防疾病。2009-2014年我国经常参加体育锻炼的人数不断上升，达到近4亿人，庞大的健身人口未来将为健身行业带来巨大的需求。</p></li>
-<li><p>业态发展迅猛</p>
-
-<p>健身俱乐部总数及会员总数逐年递增，增速有上升趋势。</p>
-
-<p>我国健身俱乐部数量自从出现以来一直保持较高的增长，但在2011-2013年间，健身市场竞争加剧导致出现关门潮，增长幅度趋小甚至出现负增长，但最近两年随着健身风潮的兴起后参与健身人数的增长，以及行业自身盈利模式的改进，健身俱乐部数量增长迅速，整个行业开始有复苏迹象，2015年开始俱乐部数量增长速度达到20%以上。<br/>
-<img src="media/15261049083487/15261080660734.jpg" alt=""/>￼</p></li>
-<li><p>健身需求多样<br/>
-不同年龄阶层的消费者对于健身拥有不同诉求：在尼尔森与国家体育总局共同实行的调查中，除了增强体质这个共同的原因外，70、80后重视通过科学系统的运动健身在缓解压力的同时有效预防运动损伤，而85后则重视通过高效的运动内容设计达到塑身修形的效果，90后则将运动作为社交的重要一环，喜欢通过晒运动照、晒运动成果在社交网络中塑造自身健康形象。<br/>
-<img src="media/15261049083487/15261080856603.jpg" alt=""/>￼</p></li>
-</ul>
-
-<h3 id="toc_2">什么是区块链</h3>
-
-<p>区块链简单说是一个全球各个节点的加密去中心化记账簿。由于其加密性，可以防篡改，是一个无需信任的信任平台；由于其去中心化的特点，带来各个行业成本大幅降低，所以说区块链是一个高效安全的交易平台 </p>
-
-<h3 id="toc_3">什么是代币</h3>
-
-<p>区块链本质是一个加密的去中心化的共享记账簿，没有了代币的价值交换，区块链就变成了一个大的存储数据库，有技术价值，没有商业价值。目前各个行业都在讲区块链，可是不是所有行业都适合，如果没有对于代币的价值交换和流通的需要，就没有必要放到区块链这个高效安全的交易平台上去运作，不会产生商业价值。</p>
-
-<h3 id="toc_4">传统健身房痛点</h3>
-
-<p>传统健身房一直以来并没有太大的发展改变，盈利方式依然是售卡 售课,教练背负着巨大的销售压力,会员的服务体验并没有随着互联网时代 区块链时代的到来而有所改善，我们称之为健身房1.0时代<br/>
-<img src="media/15261049083487/15261082446348.jpg" alt=""/>￼<br/>
-1. 渗透率低<br/>
-与北美市场相比，我国健身行业发展仍相对滞后。与美国为首的北美市场相比，我国在健身俱乐部数量和健身会员数量上都有着较大的差距。北美共有36742家健身俱乐部，会员数量达5600万，如果以总人口计算会员渗透率，北美健身俱乐部会员率达到15.8%<br/>
-2. 习惯未养成<br/>
-北美地区崇尚健身文化，健身理念根深蒂固，国内基础教育阶段学生课业负担繁重，缺乏体育锻炼时间与机会，往往错过运动技能的掌握以及对运动兴趣进行培养的最佳时期，造成成年后对体育锻炼的忽视<br/>
-3. 健身成本高<br/>
-早在2015年，美国线下健身房市场规模就达到了258亿元，会员5531万人。健身人均消费466元，占其人均收入水平不到1%。而与此相对应，我国目前商业健身房基本以年卡销售作为主要收入来源，年卡价格基本在5000元左右。美国人均健身支出/人均收入更小，进行健身消费成本更低。<br/>
-4. 业态单一<br/>
-目前国内健身房盈利模式单一，主流健身房皆采取年卡+私教模式，面向客户群体多为一二线城市高收入阶层，提供服务内容同质化较为严重</p>
-
-<h2 id="toc_5">项目创新</h2>
-
-<p>今天 在区块链3.0时代下，我们作为一群热爱着健身的互联网人，用我们的努力，用我们的智慧，尝试着去升级这个行业<br/>
-我们是panteness,我们把区块链的思想融入到我们已经耕耘了多年的健身房SaaS系统中，我们努力让每一个人爱上运动，帮助健身房可持续的发展。因为热爱，更因为专业</p>
-
-<p>panteness致力于帮助个人构建合理、好玩的健身场景，让健身人群获得更好的健身体验并且能分享部分健身房的商业价值，让真正优秀的有教学能力的健身专业人士把自身的能力共享出去获取应得的回报，让健身机构获得更多调整线下场景人流量、体验、收入的能力</p>
-
-<p>让我们一起开启健身房2.0时代</p>
-
-<h2 id="toc_6">设计方案及激励机制 token</h2>
-
-<h3 id="toc_7">DAPP是什么</h3>
-
-<ol>
-<li>运行在分布式网络上</li>
-<li>参与者信息被安全存储，隐私得到很好的保护</li>
-<li>通过网络节点去中心化操作</li>
-</ol>
-
-<p>符合这3个条件的应用可以认为是一个去中心化的分布式应用</p>
-
-<h3 id="toc_8">DAPP的特征</h3>
-
-<p>一、程序开源，数据加密保存在公开且去中心化的区块链上。<br/>
-二、应用必须通过标准算法来生产代币，代币根据应用需要使用，提供贡献的用户都应该获得代币奖励。<br/>
-三、根据市场反馈改进，必须由多数用户一致同意。</p>
-
-<h3 id="toc_9">如何利用DAPP升级现有健身生态</h3>
-
-<h4 id="toc_10">系统带来的革命性升级</h4>
-
-<ol>
-<li><p>缺乏高效管理</p>
-
-<p>利用构建在HPB之上的FP健身管理系统,结合会员 以及教练 销售手中的客户端,使整个业务无缝集成，完整流转。同时区块链的特性保证了客户数据的隐私性，避免数据泄露等问题<br/>
-<img src="media/15261049083487/15261114081940.jpg" alt=""/>￼<br/>
-<img src="media/15261049083487/15261114267480.jpg" alt=""/>￼</p></li>
-<li><p>盈利模式薄弱 单一</p>
-
-<ul>
-<li> 代币的引入可以最大幅度增加健身卡 私教课的销售</li>
-<li> 产生的大健康数据可以在HPB上产生收益</li>
-<li> gym可以在Pantenss商城上上架自己的商品</li>
-<li> 合约体系保证了会员跟教练的约定，保证了健身房的收入</li>
-<li> 对于上游采购来说，可以最大限度节省健身房成本</li>
-<li> 合约体系保证了教练的稳定性，避免健身房的损失</li>
-<li> 系统升级,实现人力的集中管理</li>
-<li> 大数据分析店铺选址</li>
-<li> 用户画像分析</li>
-<li> 潜客判断体系</li>
-<li> 蛋白粉自助售卖机增加盈利手段</li>
-</ul></li>
-<li><p>客户体验差</p>
-
-<ul>
-<li>会员的每次打卡，每次锻炼都可以得到代币,真正诠释了健康就是财富，最大程度上激发会员的激情</li>
-<li>基于区块链的社交带给会员的不仅仅是财富,还有朋友</li>
-<li>会员健身电子档案 健身日志自动生成分享到朋友圈，在满足炫耀的同时，增加了代币,同时也实现了病毒式营销</li>
-<li>生成的代币可以直接用来购买私教课，健身卡，商城里的商品</li>
-<li>开放的基于公约的教练评价体系，保证了会员的利益</li>
-</ul></li>
-</ol>
-
-<h4 id="toc_11">代币生成来源</h4>
-
-<p><img src="media/15261049083487/source.jpeg" alt="source"/>￼<br/>
-我们会从多维度来判断当前用户????</p>
-
-<h4 id="toc_12">代币采集方案</h4>
-
-<p><img src="media/15261049083487/WechatIMG3712.jpeg" alt="WechatIMG3712"/>￼</p>
-
-<p>待补充</p>
-
-<h2 id="toc_13">生态体系</h2>
-
-<p>待补充</p>
-
-<h2 id="toc_14">核心团队及顾问</h2>
-
-<p>待补充</p>
-
-<h2 id="toc_15">联系我们</h2>
-
-<p>待补充</p>
-
-</div></body>
-
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h1><a name='header-n0' class='md-header-anchor '></a>Pantness</h1><p><img src='media/15261049083487/WechatIMG370.jpeg' alt='WechatIMG370' referrerPolicy='no-referrer' /></p><h2><a name='header-n5' class='md-header-anchor '></a>项目背景</h2><p>身体活力及优美体态已经成为个人品牌的象征，健康生活理念开始为越来越多的人接受。据国家统计局发布，到2020年，国内的体育消费总规模将达到1.5万亿元人民币，经常参加体育锻炼的人数达到4.35亿 <br></p><ul><li><p>国家扶持</p><p>近年来，国家出台各类政策大力支持健康服务业、体育健身产业的发展，促进健身业态的扩张。
+<img src='media/15261049083487/1015228589.jpg' alt='1015228589' referrerPolicy='no-referrer' />
+<br></p></li><li><p>健康意识觉醒</p><p><img src='media/15261049083487/1015233835.png' alt='1015233835' referrerPolicy='no-referrer' /></p><p>现代人注重健康管理，近年国人尤其重视通过体育运动增强预防疾病。2009-2014年我国经常参加体育锻炼的人数不断上升，达到近4亿人，庞大的健身人口未来将为健身行业带来巨大的需求。</p></li><li><p>业态发展迅猛</p><p>健身俱乐部总数及会员总数逐年递增，增速有上升趋势。</p><p>我国健身俱乐部数量自从出现以来一直保持较高的增长，但在2011-2013年间，健身市场竞争加剧导致出现关门潮，增长幅度趋小甚至出现负增长，但最近两年随着健身风潮的兴起后参与健身人数的增长，以及行业自身盈利模式的改进，健身俱乐部数量增长迅速，整个行业开始有复苏迹象，2015年开始俱乐部数量增长速度达到20%以上。
+<img src='media/15261049083487/15261080660734.jpg' alt='' referrerPolicy='no-referrer' /></p></li><li><p>健身需求多样
+不同年龄阶层的消费者对于健身拥有不同诉求：在尼尔森与国家体育总局共同实行的调查中，除了增强体质这个共同的原因外，70、80后重视通过科学系统的运动健身在缓解压力的同时有效预防运动损伤，而85后则重视通过高效的运动内容设计达到塑身修形的效果，90后则将运动作为社交的重要一环，喜欢通过晒运动照、晒运动成果在社交网络中塑造自身健康形象。
+<img src='media/15261049083487/15261080856603.jpg' alt='' referrerPolicy='no-referrer' /></p></li></ul><h3><a name='header-n37' class='md-header-anchor '></a>什么是区块链</h3><p>区块链简单说是一个全球各个节点的加密去中心化记账簿。由于其加密性，可以防篡改，是一个无需信任的信任平台；由于其去中心化的特点，带来各个行业成本大幅降低，所以说区块链是一个高效安全的交易平台 </p><h3><a name='header-n39' class='md-header-anchor '></a>什么是代币</h3><p>区块链本质是一个加密的去中心化的共享记账簿，没有了代币的价值交换，区块链就变成了一个大的存储数据库，有技术价值，没有商业价值。目前各个行业都在讲区块链，可是不是所有行业都适合，如果没有对于代币的价值交换和流通的需要，就没有必要放到区块链这个高效安全的交易平台上去运作，不会产生商业价值。</p><h3><a name='header-n42' class='md-header-anchor '></a>传统健身房痛点</h3><p>传统健身房一直以来并没有太大的发展改变，盈利方式依然是售卡 售课,教练背负着巨大的销售压力,会员的服务体验并没有随着互联网时代 区块链时代的到来而有所改善，我们称之为健身房1.0时代
+<img src='media/15261049083487/15261082446348.jpg' alt='' referrerPolicy='no-referrer' /></p><ol start='' ><li>渗透率低
+与北美市场相比，我国健身行业发展仍相对滞后。与美国为首的北美市场相比，我国在健身俱乐部数量和健身会员数量上都有着较大的差距。北美共有36742家健身俱乐部，会员数量达5600万，如果以总人口计算会员渗透率，北美健身俱乐部会员率达到15.8%</li><li>习惯未养成
+北美地区崇尚健身文化，健身理念根深蒂固，国内基础教育阶段学生课业负担繁重，缺乏体育锻炼时间与机会，往往错过运动技能的掌握以及对运动兴趣进行培养的最佳时期，造成成年后对体育锻炼的忽视</li><li>健身成本高
+早在2015年，美国线下健身房市场规模就达到了258亿元，会员5531万人。健身人均消费466元，占其人均收入水平不到1%。而与此相对应，我国目前商业健身房基本以年卡销售作为主要收入来源，年卡价格基本在5000元左右。美国人均健身支出/人均收入更小，进行健身消费成本更低。</li><li>业态单一
+目前国内健身房盈利模式单一，主流健身房皆采取年卡+私教模式，面向客户群体多为一二线城市高收入阶层，提供服务内容同质化较为严重</li></ol><h2><a name='header-n65' class='md-header-anchor '></a>项目创新</h2><p>今天 在区块链3.0时代下，我们作为一群热爱着健身的互联网人，用我们的努力，用我们的智慧，尝试着去升级这个行业
+我们是panteness,我们把区块链的思想融入到我们已经耕耘了多年的健身房SaaS系统中，我们努力让每一个人爱上运动，帮助健身房可持续的发展。因为热爱，更因为专业</p><p>panteness致力于帮助个人构建合理、好玩的健身场景，让健身人群获得更好的健身体验并且能分享部分健身房的商业价值，让真正优秀的有教学能力的健身专业人士把自身的能力共享出去获取应得的回报，让健身机构获得更多调整线下场景人流量、体验、收入的能力</p><p>让我们一起开启健身房2.0时代</p><h2><a name='header-n73' class='md-header-anchor '></a>设计方案及激励机制 token</h2><h3><a name='header-n74' class='md-header-anchor '></a>DAPP是什么</h3><ol start='' ><li>运行在分布式网络上</li><li>参与者信息被安全存储，隐私得到很好的保护</li><li>通过网络节点去中心化操作</li></ol><p>符合这3个条件的应用可以认为是一个去中心化的分布式应用</p><h3><a name='header-n86' class='md-header-anchor '></a>DAPP的特征</h3><p>一、程序开源，数据加密保存在公开且去中心化的区块链上。
+二、应用必须通过标准算法来生产代币，代币根据应用需要使用，提供贡献的用户都应该获得代币奖励。
+三、根据市场反馈改进，必须由多数用户一致同意。</p><h3><a name='header-n93' class='md-header-anchor '></a>如何利用DAPP升级现有健身生态</h3><h4><a name='header-n94' class='md-header-anchor '></a>系统带来的革命性升级</h4><ol start='' ><li>缺乏高效管理</li></ol><p> 利用构建在HPB之上的FP健身管理系统,结合会员 以及教练 销售手中的客户端,使整个业务无缝集成，完整流转。同时区块链的特性保证了客户数据的隐私性，避免数据泄露等问题
+ <img src='media/15261049083487/15261114081940.jpg' alt='' referrerPolicy='no-referrer' />
+<img src='media/15261049083487/15261114267480.jpg' alt='' referrerPolicy='no-referrer' /></p><ol start='2' ><li><p>盈利模式薄弱 单一</p><ul><li>代币的引入可以最大幅度增加健身卡 私教课的销售</li><li>产生的大健康数据可以在HPB上产生收益</li><li>gym可以在Pantness商城上上架自己的商品</li><li>合约体系保证了会员跟教练的约定，保证了健身房的收入</li><li>对于上游采购来说，可以最大限度节省健身房成本</li><li>合约体系保证了教练的稳定性，避免健身房的损失</li><li>系统升级,实现人力的集中管理</li><li>大数据分析店铺选址</li><li>用户画像分析</li><li>潜客判断体系</li><li>蛋白粉自助售卖机增加盈利手段</li></ul></li><li><p>客户体验差</p><ul><li>会员的每次打卡，每次锻炼都可以得到代币,真正诠释了健康就是财富，最大程度上激发会员的激情</li><li>基于区块链的社交带给会员的不仅仅是财富,还有朋友</li><li>会员健身电子档案 健身日志自动生成分享到朋友圈，在满足炫耀的同时，增加了代币,同时也实现了病毒式营销</li><li>生成的代币可以直接用来购买私教课，健身卡，商城里的商品</li><li>开放的基于公约的教练评价体系，保证了会员的利益</li></ul></li></ol><h3><a name='header-n160' class='md-header-anchor '></a>什么是PHB</h3><p>hpb(high-performance blockchain)是一种全新的区块链软硬件体系架构，其中包含芯片加速引擎和区块链底层平台，旨在实现分布式应用的性能扩展。定位为易用的高性能区块链平台，跟产业深度结合，满足现实世界的真实商业需求。这是通过创建一个可以构建应用程序的类似操作系统的架构来实现的。该软件架构提供帐户，身份与授权管理、策略管理、数据库、异步通信以及在数以千计的cpu、fpga或群集上的程序调度，实现一个全新的体系架构，该区块链每秒可以支持数百万个交易，且达到秒级确认。</p><p>hpb采用插件化设计，支持多种虚拟机。以太虚拟机(EVM)及小蚁虚拟机(NeoVM)将被率先支持。基于hpb开发智能合约将是容易且易被验证的，基于hpb开发DAPP将突破以太坊平台的性能瓶颈，使得应用能在实际商业环境中使用。</p><h3><a name='header-n164' class='md-header-anchor '></a>Pantness如何跟PHB结合</h3><p>Pantness将基于hpb开发切合健身俱乐部当前现状的DAPP，旨在使用区块链技术提升健身爱好者的参与度和降低健身俱乐部的获客成本，通过通证经济使健身参与者与健身俱乐部达成双赢。同时，Pantness将文件存储于去中心化的分布式文件系统IPFS（InterPlanetary File System）中。</p><p>我们为了便于系统开发，将基于hpb提供的区块链应用接口开发适用于Pantness应用的区块链交互SDK中，同时在SDK中集成IPFS。
+以下是Pantness的主要架构</p><p><img src='/Users/leiyuch/Desktop/WX20180520-204637.png' alt='WX20180520-204637' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><img src='/Users/leiyuch/Downloads/区块链架构设计图 (1).png' alt='区块链架构设计图 (1)' referrerPolicy='no-referrer' /></p><h4><a name='header-n178' class='md-header-anchor '></a>代币生成来源</h4><p><img src='media/15261049083487/source.jpeg' alt='source' referrerPolicy='no-referrer' />
+      		我们会从多维度来判断当前用户的付出，真正实现用汗水换取奖励</p><h4><a name='header-n180' class='md-header-anchor '></a>代币采集方案</h4><p><img src='media/15261049083487/WechatIMG3712.jpeg' alt='WechatIMG3712' referrerPolicy='no-referrer' /></p><ul><li>C端用户通过手环打卡,采集心率</li><li>C端用户通过APP打卡，购买课程</li><li>购买Pantness耳机的C端用户通过耳机采集心率</li><li>通过设备(有氧设备 哑铃等)蓝牙贴片采集用户锻炼强度</li><li>通过SAAS大数据综合评估用户锻炼频次 时长 效果</li></ul><h2><a name='header-n201' class='md-header-anchor '></a>生态体系</h2><p><img src='/var/folders/kl/lwncrmwx6n7d7s7537lb6dgr0000gp/T/abnerworks.Typora/image-20180521142317480.png' alt='image-20180521142317480' referrerPolicy='no-referrer' /></p><p><img src='/Users/leiyuch/Desktop/image-20180521143909725.png' alt='image-20180521143909725' referrerPolicy='no-referrer' /></p><h2><a name='header-n206' class='md-header-anchor '></a>核心团队及顾问</h2><p>待补充</p><h2><a name='header-n208' class='md-header-anchor '></a>联系我们</h2><p>待补充</p><p>&nbsp;</p><p>&nbsp;</p></div>
+</body>
 </html>
